@@ -1,15 +1,14 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import TableFilters from '@/components/table/TableFilters';
 import TransactionTable from '@/components/table/TransactionTable';
 import TransactionDrawer from '@/components/table/TransactionDrawer';
 import CategoryChart from '@/components/chart/CategoryChart';
+import RewardsCatalog from '@/components/rewards/RewardsCatalog';
 import { useTransactions } from '@/lib/queries';
 import { useStore } from '@/lib/store';
 import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
-import { ListFilter, FilterX } from 'lucide-react';
 
 export default function Dashboard() {
   const { data: transactions = [] } = useTransactions();
@@ -44,6 +43,9 @@ export default function Dashboard() {
 
       {/* Category Breakdown Chart Card */}
       <CategoryChart />
+
+      {/* Rewards Catalogue Card */}
+      <RewardsCatalog />
 
       {/* Detail slide-over drawer */}
       <TransactionDrawer />

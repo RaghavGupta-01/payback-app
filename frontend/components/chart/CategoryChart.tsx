@@ -23,6 +23,7 @@ export default function CategoryChart() {
   const { data: transactions = [], isLoading } = useTransactions();
   const store = useStore();
   const [chartView, setChartView] = useState<'donut' | 'bar'>('donut');
+  const [hoveredSlice, setHoveredSlice] = useState<{ name: string; value: number; percentage: number; color: string } | null>(null);
 
   // Process data: aggregate SUCCESS transaction amounts by category
   const chartData = useMemo(() => {
@@ -181,20 +182,32 @@ export default function CategoryChart() {
 
       {/* Render Chart View conditionally */}
       {chartView === 'donut' ? (
-        <div className="p-6 flex flex-col md:flex-row items-center gap-8 min-h-[280px]">
+        <div className="p-6 flex flex-col md:flex-row items-center gap-8 min-h-[380px]">
           {/* Donut Chart View */}
-          <div className="w-full md:w-1/2 h-[220px] flex items-center justify-center relative">
+          <div className="w-full md:w-1/2 h-[340px] flex items-center justify-center relative">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={chartData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={65}
-                  outerRadius={85}
+                  innerRadius={95}
+                  outerRadius={125}
                   paddingAngle={3}
                   dataKey="value"
                   onClick={handleSliceClick}
+                  onMouseEnter={(data) => {
+                    if (data) {
+                      const target = data.payload || data;
+                      setHoveredSlice({
+                        name: target.name,
+                        value: target.value,
+                        percentage: target.percentage,
+                        color: target.color || 'var(--color-primary-500)',
+                      });
+                    }
+                  }}
+                  onMouseLeave={() => setHoveredSlice(null)}
                   className="cursor-pointer outline-none"
                 >
                   {chartData.map((entry, index) => {
@@ -212,24 +225,41 @@ export default function CategoryChart() {
                     );
                   })}
                 </Pie>
-                <Tooltip content={<CustomTooltip />} />
               </PieChart>
             </ResponsiveContainer>
 
-            {/* Abbreviated Number in Donut Center */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[10px] font-bold text-[var(--color-neutral-400)] uppercase tracking-wider">
-                Total Spend
-              </span>
-              <span className="text-[15px] font-bold text-[var(--color-neutral-800)] mt-0.5 max-w-[110px] truncate text-center">
-                {formatShortCurrency(totalValueSum)}
-              </span>
+            {/* Abbreviated Number in Donut Center (Hover Sensitive) */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-4 text-center">
+              {hoveredSlice ? (
+                <>
+                  <span 
+                    className="text-xs font-bold uppercase tracking-wider truncate max-w-[160px]"
+                    style={{ color: hoveredSlice.color }}
+                  >
+                    {hoveredSlice.name}
+                  </span>
+                  <span className="text-lg font-black text-[var(--color-neutral-800)] mt-0.5 max-w-[165px] truncate">
+                    {formatShortCurrency(hoveredSlice.value)}
+                  </span>
+                  <span className="text-[10px] font-semibold text-[var(--color-neutral-450)] mt-0.5">
+                    {hoveredSlice.percentage.toFixed(1)}%
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="text-xs font-bold text-[var(--color-neutral-400)] uppercase tracking-wider">
+                    Total Spend
+                  </span>
+                  <span className="text-lg font-black text-[var(--color-neutral-800)] mt-0.5 max-w-[165px] truncate">
+                    {formatShortCurrency(totalValueSum)}
+                  </span>
+                </>
+              )}
             </div>
           </div>
 
-          {/* Simple Legend Column */}
           <div className="w-full md:w-1/2 space-y-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[180px] overflow-y-auto pr-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[280px] overflow-y-auto pr-2">
               {chartData.map((item) => {
                 const isSelected = activeCategory === item.name;
                 const isAnySelected = activeCategory !== '';
@@ -268,8 +298,8 @@ export default function CategoryChart() {
         </div>
       ) : (
         /* Horizontal Progress-Bar List View */
-        <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[280px] overflow-y-auto pr-2">
+        <div className="p-6 min-h-[380px] flex flex-col justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[330px] overflow-y-auto pr-2">
             {chartData.map((item) => {
               const isSelected = activeCategory === item.name;
               const isAnySelected = activeCategory !== '';

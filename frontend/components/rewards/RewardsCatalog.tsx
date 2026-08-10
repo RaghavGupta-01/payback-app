@@ -5,7 +5,7 @@ import { useCatalog, useRedeemMutation, useBalance } from '@/lib/queries';
 import { Reward } from '@/lib/api';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { Gift, Sparkles, HelpCircle, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { HelpCircle, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
 export default function RewardsCatalog() {
   const { data: rewards = [], isLoading: isCatalogLoading, isError: isCatalogError } = useCatalog();
@@ -73,76 +73,75 @@ export default function RewardsCatalog() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Title section */}
-      <div className="flex items-center justify-between border-b border-[var(--color-neutral-100)] pb-3">
-        <div className="flex items-center gap-2">
-          <Gift className="w-5 h-5 text-[var(--color-primary-500)]" />
-          <h3 className="font-semibold text-sm text-[var(--color-neutral-700)]">
-            Rewards Catalogue
-          </h3>
-        </div>
-        <div className="text-xs text-[var(--color-neutral-400)]">
-          Balance: <strong className="font-semibold text-amber-600">{userBalance} Coins</strong>
+    <Card className="p-0 overflow-hidden flex flex-col">
+      {/* Card Header with Title */}
+      <div className="px-6 py-[var(--spacing-4)] bg-[var(--color-neutral-50)]/50 border-b border-[var(--color-neutral-200)] flex items-center justify-between">
+        <h2 className="text-xl font-bold text-[var(--color-neutral-800)] tracking-tight">
+          Rewards Catalogue
+        </h2>
+        <div className="text-xs font-semibold text-[var(--color-neutral-500)] select-none">
+          Balance: <strong className="font-bold text-amber-600">{userBalance.toLocaleString()} Coins</strong>
         </div>
       </div>
 
-      {/* Alert notifications */}
-      {notification && (
-        <div
-          className={`flex items-start gap-2.5 p-3.5 rounded-lg border text-xs shadow-sm transition-all animate-in fade-in slide-in-from-top-2 duration-200 ${
-            notification.type === 'success'
-              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
-              : 'bg-red-50 border-red-200 text-red-800'
-          }`}
-        >
-          {notification.type === 'success' ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-          ) : (
-            <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-          )}
-          <span className="font-medium">{notification.message}</span>
-        </div>
-      )}
+      {/* Card Content */}
+      <div className="p-6 space-y-6">
+        {/* Success / Error alert notifications */}
+        {notification && (
+          <div
+            className={`flex items-start gap-2.5 p-3.5 rounded-lg border text-xs shadow-sm transition-all animate-in fade-in slide-in-from-top-2 duration-200 ${
+              notification.type === 'success'
+                ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                : 'bg-red-50 border-red-200 text-red-800'
+            }`}
+          >
+            {notification.type === 'success' ? (
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+            ) : (
+              <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+            )}
+            <span className="font-medium">{notification.message}</span>
+          </div>
+        )}
 
-      {/* Rewards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {rewards.map((reward) => {
-          const canAfford = userBalance >= reward.coin_cost;
-          return (
-            <Card
-              key={reward.id}
-              className="flex flex-col justify-between hover:shadow-md transition-all h-full bg-white border border-[var(--color-neutral-200)]"
-            >
-              <div className="space-y-2">
-                <div className="flex items-start justify-between gap-3">
-                  <h4 className="font-semibold text-sm text-[var(--color-neutral-800)] line-clamp-1">
-                    {reward.name}
-                  </h4>
-                  <div className="flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md text-[10px] font-bold border border-amber-200/50 flex-shrink-0">
-                    <Sparkles className="w-3 h-3 fill-amber-50" />
-                    <span>{reward.coin_cost} Coins</span>
+        {/* Rewards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {rewards.map((reward) => {
+            const canAfford = userBalance >= reward.coin_cost;
+            return (
+              <div
+                key={reward.id}
+                className="flex flex-col justify-between p-4 hover:shadow-md transition-all h-full bg-white border border-[var(--color-neutral-200)] rounded-xl"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-start justify-between gap-3">
+                    <h4 className="font-bold text-sm text-[var(--color-neutral-800)] line-clamp-1">
+                      {reward.name}
+                    </h4>
+                    <div className="flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md text-[10px] font-extrabold border border-amber-200/50 flex-shrink-0 select-none">
+                      <span>{reward.coin_cost} Coins</span>
+                    </div>
                   </div>
+                  <p className="text-xs text-[var(--color-neutral-500)] line-clamp-2 leading-relaxed">
+                    {reward.description}
+                  </p>
                 </div>
-                <p className="text-xs text-[var(--color-neutral-500)] line-clamp-2 leading-relaxed">
-                  {reward.description}
-                </p>
-              </div>
 
-              <div className="pt-4 mt-auto">
-                <Button
-                  variant={canAfford ? 'primary' : 'secondary'}
-                  size="sm"
-                  onClick={() => setRewardToRedeem(reward)}
-                  disabled={!canAfford}
-                  className="w-full h-8 text-xs font-semibold"
-                >
-                  {canAfford ? 'Redeem Reward' : 'Insufficient Coins'}
-                </Button>
+                <div className="pt-4 mt-auto">
+                  <Button
+                    variant={canAfford ? 'primary' : 'secondary'}
+                    size="sm"
+                    onClick={() => setRewardToRedeem(reward)}
+                    disabled={!canAfford}
+                    className="w-full h-8 text-xs font-semibold"
+                  >
+                    {canAfford ? 'Redeem Reward' : 'Insufficient Coins'}
+                  </Button>
+                </div>
               </div>
-            </Card>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
       {/* Confirmation Modal */}
@@ -203,6 +202,6 @@ export default function RewardsCatalog() {
           </Card>
         </div>
       )}
-    </div>
+    </Card>
   );
 }
