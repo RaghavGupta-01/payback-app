@@ -10,9 +10,9 @@ export default function Card({
   className = '',
   ...props
 }: CardProps) {
-  const baseStyles = 'bg-white dark:bg-[var(--color-neutral-900)] border border-[var(--color-neutral-200)] dark:border-[var(--color-neutral-800)] rounded-[var(--radius-xl)] p-[var(--spacing-6)] shadow-sm';
+  const baseStyles = 'bg-white border border-[var(--color-neutral-200)] rounded-[var(--radius-xl)] p-[var(--spacing-6)] shadow-sm';
   const hoverStyles = hoverable 
-    ? 'transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 hover:border-[var(--color-primary-200)] dark:hover:border-[var(--color-primary-800)]' 
+    ? 'transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 hover:border-[var(--color-primary-200)]' 
     : '';
 
   return (

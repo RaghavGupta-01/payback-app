@@ -16,9 +16,9 @@ export default function Button({
   
   const variantStyles = {
     primary: 'bg-[var(--color-primary-600)] hover:bg-[var(--color-primary-700)] active:bg-[var(--color-primary-800)] text-white shadow-sm focus-visible:outline-[var(--color-primary-600)]',
-    secondary: 'bg-[var(--color-neutral-100)] dark:bg-[var(--color-neutral-800)] text-[var(--color-neutral-700)] dark:text-[var(--color-neutral-200)] hover:bg-[var(--color-neutral-200)] dark:hover:bg-[var(--color-neutral-700)] border border-[var(--color-neutral-200)] dark:border-[var(--color-neutral-700)] shadow-sm focus-visible:outline-[var(--color-neutral-400)]',
+    secondary: 'bg-[var(--color-neutral-100)] text-[var(--color-neutral-700)] hover:bg-[var(--color-neutral-200)] border border-[var(--color-neutral-200)] shadow-sm focus-visible:outline-[var(--color-neutral-400)]',
     danger: 'bg-[var(--color-failed-600)] hover:bg-[var(--color-failed-700)] active:bg-[var(--color-failed-800)] text-white shadow-sm focus-visible:outline-[var(--color-failed-600)]',
-    ghost: 'text-[var(--color-neutral-600)] dark:text-[var(--color-neutral-400)] hover:bg-[var(--color-neutral-100)] dark:hover:bg-[var(--color-neutral-800)] hover:text-[var(--color-neutral-900)] dark:hover:text-[var(--color-neutral-100)] focus-visible:outline-[var(--color-neutral-400)]',
+    ghost: 'text-[var(--color-neutral-600)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-neutral-900)] focus-visible:outline-[var(--color-neutral-400)]',
   };
 
   const sizeStyles = {
