@@ -12,7 +12,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins in local development
+    allow_origins=[
+        "http://localhost:3000",
+        "https://payback-app-roan.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
