@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 import TableFilters from '@/components/table/TableFilters';
 import TransactionTable from '@/components/table/TransactionTable';
-// import TransactionDrawer from '@/components/table/TransactionDrawer';
+import TransactionDrawer from '@/components/table/TransactionDrawer';
 import { useTransactions } from '@/lib/queries';
 
 export default function Dashboard() {
@@ -25,7 +25,7 @@ export default function Dashboard() {
       </div>
 
       {/* Detail slide-over drawer */}
-      {/* <TransactionDrawer /> */}
+      <TransactionDrawer />
     </div>
   );
 }
