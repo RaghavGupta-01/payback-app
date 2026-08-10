@@ -15,3 +15,4 @@
   to guard against inconsistent casing in the source data.
 - Rewards can be redeemed multiple times by the same user, limited only by coin balance - no one-reward per user redemption cap is enforced.
 - The user's browser is assumed to be a modern client capable of handling ~10,000 transaction objects in memory for zero-latency sorting and filtering operations.
+- Negative amount values in the source data were treated as data entry errors and normalized to their absolute value.
