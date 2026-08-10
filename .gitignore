@@ -1,0 +1,51 @@
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# FastAPI / Python tooling
+*.log
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+.turbo/
+.vercel/
+
+# Build / cache
+dist/
+build/
+*.tsbuildinfo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/
+.idea/
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
