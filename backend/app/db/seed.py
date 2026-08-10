@@ -50,7 +50,8 @@ def normalize_timestamp(ts) -> datetime:
 
 
 def parse_amount(raw) -> float:
-    return float(raw)
+    clean = str(raw).replace("-", "").strip()
+    return float(clean)
 
 
 def compute_coins(amount: float, status: str) -> int:
