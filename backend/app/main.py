@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from sqlalchemy import text
 
+from app.api import transactions
 from app.db.session import async_session
 
 app = FastAPI(
     title="Project API",
     version="0.1.0",
 )
-
+app.include_router(transactions.router)
 
 @app.get("/health")
 async def health():
