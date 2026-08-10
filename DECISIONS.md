@@ -1,7 +1,8 @@
 # Technical Decisions
 
 ## Frontend
-<!-- TODO -->
+- **TanStack Query (React Query)**: Used for managing server state, automatic caching, data refetching, and state mutation (e.g. rewards redemption). In particular, we utilize query invalidation to sync user coin balance after successful redemptions and rollback functions during failure states.
+- **Zustand**: Selected for light, centralized client state management (active search keywords, filter values, sorting parameters, detail drawer open state, and selected reward). This avoids the boilerplates of Redux or React Context and reduces unnecessary re-renders.
 
 ## Backend
 - **FastAPI + async SQLAlchemy (asyncpg)** for non-blocking DB access under load.
