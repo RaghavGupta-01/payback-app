@@ -166,7 +166,7 @@ return (
       {/* Table Title and Count */}
       <div className="px-6 py-[var(--spacing-4)] bg-[var(--color-neutral-50)]/50 border-b border-[var(--color-neutral-200)] flex items-center justify-between">
         <div>
-          <h2 className="font-[var(--font-weight-bold)] text-[var(--font-size-base)] text-[var(--color-neutral-800)]">
+          <h2 className="font-[var(--font-weight-semibold)] text-[var(--font-size-sm)] text-[var(--color-neutral-700)]">
             Transactions History
           </h2>
           <p className="text-[var(--font-size-xs)] text-[var(--color-neutral-400)] mt-0.5">
@@ -179,10 +179,10 @@ return (
       <div className="w-full overflow-x-auto">
         <div className="min-w-[768px] flex flex-col">
           {/* Sticky Table Header */}
-          <div className="flex items-stretch px-6 py-0 border-b border-[var(--color-neutral-200)] bg-[var(--color-neutral-50)]/80 font-[var(--font-weight-semibold)] text-[var(--font-size-xs)] text-[var(--color-neutral-500)] select-none">
+          <div className="flex items-stretch px-6 py-0 border-b border-[var(--color-neutral-200)] bg-[var(--color-neutral-50)]/80 text-xs font-bold text-[var(--color-neutral-400)] uppercase tracking-wider select-none">
             {/* Merchant Column Header */}
             <div
-              className="flex-[2] flex items-center gap-1 cursor-pointer py-3 pr-4 border-r border-[var(--color-neutral-200)] hover:text-[var(--color-neutral-750)] transition-colors"
+              className="flex-[2] flex items-center gap-1 cursor-pointer py-3 pr-4 border-r border-[var(--color-neutral-200)] hover:text-[var(--color-neutral-600)] transition-colors"
               onClick={() => handleSort('merchant')}
             >
               <span>Merchant</span>
@@ -194,7 +194,7 @@ return (
 
             {/* Amount Column Header */}
             <div
-              className="flex-1 flex items-center gap-1 cursor-pointer py-3 px-4 border-r border-[var(--color-neutral-200)] hover:text-[var(--color-neutral-750)] transition-colors"
+              className="flex-1 flex items-center gap-1 cursor-pointer py-3 px-4 border-r border-[var(--color-neutral-200)] hover:text-[var(--color-neutral-600)] transition-colors"
               onClick={() => handleSort('amount')}
             >
               <span>Amount</span>
@@ -206,7 +206,7 @@ return (
 
             {/* Timestamp Column Header */}
             <div
-              className="flex-[1.5] flex items-center gap-1 cursor-pointer py-3 pl-4 hover:text-[var(--color-neutral-750)] transition-colors"
+              className="flex-[1.5] flex items-center gap-1 cursor-pointer py-3 pl-4 hover:text-[var(--color-neutral-600)] transition-colors"
               onClick={() => handleSort('occurred_at')}
             >
               <span>Timestamp</span>

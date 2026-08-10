@@ -41,8 +41,8 @@ export default function TableFilters({ categories }: TableFiltersProps) {
     <Card className="space-y-4">
       {/* Header and Reset Button */}
       <div className="flex items-center justify-between border-b border-[var(--color-neutral-100)] pb-3">
-        <div className="flex items-center gap-2 font-[var(--font-weight-semibold)] text-[var(--font-size-base)] text-[var(--color-neutral-850)]">
-          <ListFilter className="w-5 h-5 text-[var(--color-primary-500)]" />
+        <div className="flex items-center gap-2 font-[var(--font-weight-semibold)] text-[var(--font-size-sm)] text-[var(--color-neutral-700)]">
+          <ListFilter className="w-4 h-4 text-[var(--color-primary-500)]" />
           <span>Filter Transactions</span>
         </div>
         {hasActiveFilters && (
@@ -59,7 +59,7 @@ export default function TableFilters({ categories }: TableFiltersProps) {
       </div>
 
       {/* Inputs Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Search input */}
         <div className="space-y-1.5">
           <label className="text-[var(--font-size-xs)] font-[var(--font-weight-medium)] text-[var(--color-neutral-500)]">
@@ -96,52 +96,56 @@ export default function TableFilters({ categories }: TableFiltersProps) {
             onChange={(e) => store.setStatus(e.target.value)}
           />
         </div>
+      </div>
 
-        {/* Date From & To Combined */}
-        <div className="space-y-1.5">
-          <label className="text-[var(--font-size-xs)] font-[var(--font-weight-medium)] text-[var(--color-neutral-500)]">
-            Date Range
-          </label>
+      {/* Advanced Filters Row (Date and Amount Ranges) */}
+      <div className="flex flex-col lg:flex-row lg:items-center gap-6 pt-4 border-t border-[var(--color-neutral-100)]">
+        {/* Date Range Filter */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex items-center gap-1.5 text-[var(--font-size-xs)] font-[var(--font-weight-medium)] text-[var(--color-neutral-500)] flex-shrink-0">
+            <Calendar className="w-4 h-4 text-[var(--color-neutral-400)]" />
+            <span>Date Range</span>
+          </div>
           <div className="flex items-center gap-2">
             <Input
               type="date"
               value={store.dateFrom}
               onChange={(e) => store.setDateFrom(e.target.value)}
-              className="w-full text-xs"
+              className="w-36 text-sm"
             />
             <span className="text-[var(--color-neutral-400)] text-xs">to</span>
             <Input
               type="date"
               value={store.dateTo}
               onChange={(e) => store.setDateTo(e.target.value)}
-              className="w-full text-xs"
+              className="w-36 text-sm"
             />
           </div>
         </div>
-      </div>
 
-      {/* Advanced Amount range filter row */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2 border-t border-[var(--color-neutral-100)]">
-        <div className="flex items-center gap-1.5 text-[var(--font-size-xs)] font-[var(--font-weight-medium)] text-[var(--color-neutral-500)]">
-          <DollarSign className="w-4 h-4 text-[var(--color-neutral-400)]" />
-          <span>Amount Range (₹)</span>
-        </div>
-        <div className="flex items-center gap-2 w-full sm:w-auto">
-          <Input
-            type="number"
-            placeholder="Min"
-            value={store.amountMin}
-            onChange={(e) => store.setAmountMin(e.target.value)}
-            className="w-24 sm:w-28 text-xs"
-          />
-          <span className="text-[var(--color-neutral-400)] text-xs">—</span>
-          <Input
-            type="number"
-            placeholder="Max"
-            value={store.amountMax}
-            onChange={(e) => store.setAmountMax(e.target.value)}
-            className="w-24 sm:w-28 text-xs"
-          />
+        {/* Amount Range Filter */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 lg:ml-auto">
+          <div className="flex items-center gap-1.5 text-[var(--font-size-xs)] font-[var(--font-weight-medium)] text-[var(--color-neutral-500)] flex-shrink-0">
+            <DollarSign className="w-4 h-4 text-[var(--color-neutral-400)]" />
+            <span>Amount Range (₹)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Input
+              type="number"
+              placeholder="Min"
+              value={store.amountMin}
+              onChange={(e) => store.setAmountMin(e.target.value)}
+              className="w-24 text-sm"
+            />
+            <span className="text-[var(--color-neutral-400)] text-xs">—</span>
+            <Input
+              type="number"
+              placeholder="Max"
+              value={store.amountMax}
+              onChange={(e) => store.setAmountMax(e.target.value)}
+              className="w-24 text-sm"
+            />
+          </div>
         </div>
       </div>
     </Card>

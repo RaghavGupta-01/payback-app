@@ -1,22 +1,19 @@
 'use client';
 
 import React from 'react';
-import { Coins, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useBalance } from '@/lib/queries';
 
 export default function Header() {
   const { data: balanceData, isLoading } = useBalance();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[var(--color-neutral-200)] bg-white/80 backdrop-blur-md transition-colors duration-200">
+    <header className="sticky top-0 z-50 w-full border-b border-[var(--color-neutral-200)] bg-white/85 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo Section */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-[var(--color-primary-600)] to-[var(--color-primary-400)] text-white shadow-md shadow-purple-500/20">
-            <Coins className="w-5 h-5 animate-pulse" />
-          </div>
-          <span className="text-[var(--font-size-lg)] font-[var(--font-weight-bold)] bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-neutral-900)] to-[var(--color-neutral-600)] tracking-tight">
-            PayBack
+        <div className="flex items-center select-none">
+          <span className="text-2xl font-black text-[var(--color-neutral-900)] tracking-tight">
+            Pay<span className="text-[var(--color-primary-600)]">Back</span><span className="text-[var(--color-primary-500)]">.</span>
           </span>
         </div>
 

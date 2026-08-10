@@ -53,15 +53,12 @@ export default function TableRow({ transaction, index, style, onClick }: TableRo
       tabIndex={0}
       role="button"
       aria-label={`Transaction at ${transaction.merchant} for ${formatCurrency(transaction.amount)}`}
-      className={`flex items-stretch px-6 border-b border-[var(--color-neutral-100)] hover:bg-[var(--color-primary-50)]/30 cursor-pointer focus:bg-[var(--color-primary-50)]/50 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary-500)] outline-none transition-colors duration-150 ${
-        isEven ? 'bg-white' : 'bg-[var(--color-neutral-50)]/40'
+      className={`flex items-stretch px-6 border-b border-[var(--color-neutral-100)] hover:bg-[var(--color-primary-50)]/50 cursor-pointer focus:bg-[var(--color-primary-50)]/70 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary-500)] outline-none transition-colors duration-150 ${
+        isEven ? 'bg-white' : 'bg-neutral-50/75'
       }`}
     >
       {/* Merchant Info */}
-      <div className="flex-[2] flex items-center gap-3 min-w-0 py-3 pr-4 border-r border-[var(--color-neutral-100)]">
-        <div className="hidden sm:flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--color-neutral-100)] text-[var(--color-neutral-500)] flex-shrink-0">
-          <Receipt className="w-4 h-4" />
-        </div>
+      <div className="flex-[2] flex items-center min-w-0 py-3 pr-4 border-r border-[var(--color-neutral-100)]">
         <div className="min-w-0">
           <p className="font-[var(--font-weight-semibold)] text-[var(--font-size-sm)] text-[var(--color-neutral-800)] truncate">
             {transaction.merchant}

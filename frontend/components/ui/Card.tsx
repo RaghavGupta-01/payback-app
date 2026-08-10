@@ -10,7 +10,9 @@ export default function Card({
   className = '',
   ...props
 }: CardProps) {
-  const baseStyles = 'bg-white border border-[var(--color-neutral-200)] rounded-[var(--radius-xl)] p-[var(--spacing-6)] shadow-sm';
+  const hasPaddingOverride = className.split(' ').some(cls => cls.startsWith('p-') || cls.startsWith('px-') || cls.startsWith('py-'));
+  const paddingStyle = hasPaddingOverride ? '' : 'p-[var(--spacing-6)]';
+  const baseStyles = `bg-white border border-[var(--color-neutral-200)] rounded-[var(--radius-xl)] shadow-sm ${paddingStyle}`;
   const hoverStyles = hoverable 
     ? 'transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 hover:border-[var(--color-primary-200)]' 
     : '';
