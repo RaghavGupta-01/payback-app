@@ -15,8 +15,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
         <input
           ref={ref}
-          className={`w-full py-[var(--spacing-2)] pr-[var(--spacing-3)] text-[var(--font-size-sm)] bg-white border border-[var(--color-neutral-200)] rounded-[var(--radius-lg)] outline-none hover:border-neutral-450 hover:bg-neutral-50/40 focus:bg-white focus:border-[var(--color-primary-500)] focus:ring-1 focus:ring-[var(--color-primary-500)] transition-all placeholder-[var(--color-neutral-400)] text-[var(--color-neutral-900)] cursor-pointer ${
-            icon ? 'pl-9' : 'pl-[var(--spacing-3)]'
+          className={`w-full py-1.5 sm:py-2 pr-3 text-xs sm:text-sm bg-white border border-[var(--color-neutral-200)] rounded-md sm:rounded-lg outline-none hover:border-neutral-450 hover:bg-neutral-50/40 focus:bg-white focus:border-[var(--color-primary-500)] focus:ring-1 focus:ring-[var(--color-primary-500)] transition-all placeholder-[var(--color-neutral-400)] text-[var(--color-neutral-900)] cursor-pointer ${
+            icon ? 'pl-8 sm:pl-9' : 'pl-3'
           } ${className}`}
           {...props}
         />

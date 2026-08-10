@@ -5,7 +5,6 @@ import TableFilters from '@/components/table/TableFilters';
 import TransactionTable from '@/components/table/TransactionTable';
 import TransactionDrawer from '@/components/table/TransactionDrawer';
 import CategoryChart from '@/components/chart/CategoryChart';
-import RewardsCatalog from '@/components/rewards/RewardsCatalog';
 import { useTransactions } from '@/lib/queries';
 import { useStore } from '@/lib/store';
 import Card from '@/components/ui/Card';
@@ -21,10 +20,10 @@ export default function Dashboard() {
   }, [transactions]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+    <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 min-w-0">
 
       {/* Unified Transactions & Filters Card */}
-      <Card className="p-0 overflow-hidden flex flex-col">
+      <Card className="p-0 overflow-hidden flex flex-col min-w-0">
         {/* Card Header with Title */}
         <div className="px-6 py-[var(--spacing-4)] bg-[var(--color-neutral-50)]/50 border-b border-[var(--color-neutral-200)] flex items-center justify-between">
           <h2 className="text-xl font-bold text-[var(--color-neutral-800)] tracking-tight">
@@ -33,7 +32,7 @@ export default function Dashboard() {
         </div>
 
         {/* Embedded Filters Panel */}
-        <div className="p-6 border-b border-[var(--color-neutral-200)]">
+        <div className="p-4 sm:p-6 border-b border-[var(--color-neutral-200)]">
           <TableFilters categories={categories} />
         </div>
 
@@ -43,9 +42,6 @@ export default function Dashboard() {
 
       {/* Category Breakdown Chart Card */}
       <CategoryChart />
-
-      {/* Rewards Catalogue Card */}
-      <RewardsCatalog />
 
       {/* Detail slide-over drawer */}
       <TransactionDrawer />

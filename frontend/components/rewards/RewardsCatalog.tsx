@@ -5,7 +5,42 @@ import { useCatalog, useRedeemMutation, useBalance } from '@/lib/queries';
 import { Reward } from '@/lib/api';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { HelpCircle, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { HelpCircle, CheckCircle2, AlertCircle, Loader2, Ticket, Coins, ShoppingBag, Gift } from 'lucide-react';
+
+// Theme builder for high-fidelity fintech vouchers
+function getVoucherTheme(name: string) {
+  const lowercaseName = name.toLowerCase();
+  if (lowercaseName.includes('amazon')) {
+    return {
+      gradient: 'from-orange-500/[0.04] to-amber-500/[0.02] border-orange-200/50',
+      textAccent: 'text-orange-600',
+      badgeBg: 'bg-orange-50/70 text-orange-700 border-orange-200/40',
+      Icon: ShoppingBag,
+    };
+  }
+  if (lowercaseName.includes('cashback')) {
+    return {
+      gradient: 'from-emerald-500/[0.04] to-teal-500/[0.02] border-emerald-200/50',
+      textAccent: 'text-emerald-600',
+      badgeBg: 'bg-emerald-50/70 text-emerald-700 border-emerald-200/40',
+      Icon: Coins,
+    };
+  }
+  if (lowercaseName.includes('movie') || lowercaseName.includes('ticket') || lowercaseName.includes('pvr')) {
+    return {
+      gradient: 'from-purple-500/[0.04] to-indigo-500/[0.02] border-purple-200/50',
+      textAccent: 'text-purple-600',
+      badgeBg: 'bg-purple-50/70 text-purple-700 border-purple-200/40',
+      Icon: Ticket,
+    };
+  }
+  return {
+    gradient: 'from-blue-500/[0.04] to-indigo-500/[0.02] border-blue-200/50',
+    textAccent: 'text-blue-600',
+    badgeBg: 'bg-blue-50/70 text-blue-700 border-blue-200/40',
+    Icon: Gift,
+  };
+}
 
 export default function RewardsCatalog() {
   const { data: rewards = [], isLoading: isCatalogLoading, isError: isCatalogError } = useCatalog();
@@ -28,7 +63,7 @@ export default function RewardsCatalog() {
     (data) => {
       setNotification({
         type: 'success',
-        message: `Successfully redeemed! Redemption ID: ${data.redemption_id.slice(0, 8)}...`,
+        message: `Successfully redeemed!`,
       });
       setRewardToRedeem(null);
     },
@@ -79,13 +114,10 @@ export default function RewardsCatalog() {
         <h2 className="text-xl font-bold text-[var(--color-neutral-800)] tracking-tight">
           Rewards Catalogue
         </h2>
-        <div className="text-xs font-semibold text-[var(--color-neutral-500)] select-none">
-          Balance: <strong className="font-bold text-amber-600">{userBalance.toLocaleString()} Coins</strong>
-        </div>
       </div>
 
       {/* Card Content */}
-      <div className="p-6 space-y-6">
+      <div className="p-4 sm:p-6 space-y-6">
         {/* Success / Error alert notifications */}
         {notification && (
           <div
@@ -108,34 +140,49 @@ export default function RewardsCatalog() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {rewards.map((reward) => {
             const canAfford = userBalance >= reward.coin_cost;
+            const theme = getVoucherTheme(reward.name);
+            const Icon = theme.Icon;
+            
             return (
               <div
                 key={reward.id}
-                className="flex flex-col justify-between p-4 hover:shadow-md transition-all h-full bg-white border border-[var(--color-neutral-200)] rounded-xl"
+                className={`flex flex-col justify-between p-5 transition-all duration-300 h-full bg-gradient-to-br ${theme.gradient} border rounded-xl hover:-translate-y-1 hover:shadow-lg hover:shadow-neutral-200/45 relative overflow-hidden group`}
               >
-                <div className="space-y-2">
-                  <div className="flex items-start justify-between gap-3">
-                    <h4 className="font-bold text-sm text-[var(--color-neutral-800)] line-clamp-1">
-                      {reward.name}
-                    </h4>
-                    <div className="flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md text-[10px] font-extrabold border border-amber-200/50 flex-shrink-0 select-none">
+                {/* Giant background watermark stamp */}
+                <div className="absolute -right-4 -bottom-4 text-neutral-900/5 opacity-[0.03] pointer-events-none group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="w-24 h-24" />
+                </div>
+
+                <div className="space-y-3.5 relative z-10">
+                  {/* Category icon and cost badge */}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className={`p-2 rounded-lg bg-white shadow-sm border border-neutral-100/60 ${theme.textAccent}`}>
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <div className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border select-none ${theme.badgeBg}`}>
                       <span>{reward.coin_cost} Coins</span>
                     </div>
                   </div>
-                  <p className="text-xs text-[var(--color-neutral-500)] line-clamp-2 leading-relaxed">
-                    {reward.description}
-                  </p>
+
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-sm text-[var(--color-neutral-850)] leading-snug group-hover:text-[var(--color-primary-700)] transition-colors">
+                      {reward.name}
+                    </h4>
+                    <p className="text-[11px] text-[var(--color-neutral-450)] leading-relaxed line-clamp-2">
+                      {reward.description}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="pt-4 mt-auto">
+                <div className="pt-5 mt-auto relative z-10">
                   <Button
                     variant={canAfford ? 'primary' : 'secondary'}
                     size="sm"
                     onClick={() => setRewardToRedeem(reward)}
                     disabled={!canAfford}
-                    className="w-full h-8 text-xs font-semibold"
+                    className="w-full h-8 text-xs font-semibold shadow-sm cursor-pointer"
                   >
-                    {canAfford ? 'Redeem Reward' : 'Insufficient Coins'}
+                    {canAfford ? 'Redeem Voucher' : 'Insufficient Coins'}
                   </Button>
                 </div>
               </div>
@@ -157,9 +204,6 @@ export default function RewardsCatalog() {
                 <h4 className="font-bold text-sm text-[var(--color-neutral-800)]">
                   Confirm Redemption
                 </h4>
-                <p className="text-[10px] text-[var(--color-neutral-400)] uppercase tracking-wider font-semibold">
-                  Redeem Rewards System
-                </p>
               </div>
             </div>
 

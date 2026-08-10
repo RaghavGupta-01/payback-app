@@ -96,7 +96,7 @@ export default function TransactionDrawer() {
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    
+
     if (store.isDrawerOpen && closeButtonRef.current) {
       setTimeout(() => {
         closeButtonRef.current?.focus();
@@ -139,26 +139,32 @@ export default function TransactionDrawer() {
     }
   };
 
+  const formatStatusText = (status?: string) => {
+    if (!status) return '';
+    if (status === 'SUCCESS') return 'Success';
+    if (status === 'FAILED') return 'Failed';
+    if (status === 'PENDING') return 'Pending';
+    return status;
+  };
+
   return (
-    <div 
-      className="fixed inset-0 z-50 overflow-hidden flex justify-end" 
-      role="dialog" 
+    <div
+      className="fixed inset-0 z-50 overflow-hidden flex justify-end"
+      role="dialog"
       aria-modal="true"
     >
       {/* Backdrop overlay (fade transition) */}
-      <div 
-        className={`absolute inset-0 bg-neutral-950/40 backdrop-blur-[2px] transition-opacity duration-300 ease-in-out ${
-          animate ? 'opacity-100' : 'opacity-0'
-        }`}
+      <div
+        className={`absolute inset-0 bg-neutral-950/40 backdrop-blur-[2px] transition-opacity duration-300 ease-in-out ${animate ? 'opacity-100' : 'opacity-0'
+          }`}
         onClick={handleClose}
       />
 
       {/* Drawer content panel (slide transition) */}
       <div
         ref={drawerRef}
-        className={`relative w-full max-w-md h-full bg-white border-l border-[var(--color-neutral-200)] shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out z-10 ${
-          animate ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`relative w-full max-w-md h-full bg-white border-l border-[var(--color-neutral-200)] shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out z-10 ${animate ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         {/* Header */}
         <div className="px-6 py-5 border-b border-[var(--color-neutral-100)] flex items-center justify-between">
@@ -200,13 +206,10 @@ export default function TransactionDrawer() {
           ) : displayTxn ? (
             <>
               {/* Top Highlights (Merchant name & huge amount) */}
-              <div className="flex flex-col items-start space-y-2 pt-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold text-[var(--color-neutral-400)] uppercase tracking-wider">
-                    Merchant
-                  </span>
-                  <Badge variant={displayTxn.status}>{displayTxn.status}</Badge>
-                </div>
+              <div className="flex flex-col items-start space-y-1.5 pt-2">
+                <span className="text-[10px] font-bold text-[var(--color-neutral-400)] uppercase tracking-wider">
+                  Merchant
+                </span>
                 <h3 className="font-extrabold text-2xl text-[var(--color-neutral-900)] tracking-tight">
                   {displayTxn.merchant}
                 </h3>
@@ -222,6 +225,19 @@ export default function TransactionDrawer() {
                 </h4>
 
                 <div className="space-y-4">
+                  {/* Status */}
+                  <div className="flex items-center justify-between text-sm py-0.5">
+                    <span className="text-[var(--color-neutral-450)] font-medium">Payment Status</span>
+                    <span className={`font-bold text-right ${displayTxn.status === 'SUCCESS'
+                        ? 'text-[var(--color-success-600)]'
+                        : displayTxn.status === 'FAILED'
+                          ? 'text-[var(--color-failed-600)]'
+                          : 'text-[var(--color-pending-600)]'
+                      }`}>
+                      {formatStatusText(displayTxn.status)}
+                    </span>
+                  </div>
+
                   {/* Timestamp */}
                   <div className="flex items-center justify-between text-sm py-0.5">
                     <span className="text-[var(--color-neutral-450)] font-medium">Date & Time</span>
@@ -264,10 +280,10 @@ export default function TransactionDrawer() {
                   </div>
                   <div className="space-y-0.5">
                     <h5 className="font-semibold text-xs text-amber-900">
-                      Coins Reward Earned
+                      Coins Earned
                     </h5>
                     <p className="text-xs text-amber-800 leading-relaxed">
-                      You accumulated <strong className="font-bold">{displayTxn.coins_earned} coins</strong> on this successful checkout.
+                      You accumulated <strong className="font-bold">{displayTxn.coins_earned} coins</strong> on this transaction.
                     </p>
                   </div>
                 </div>
@@ -275,13 +291,7 @@ export default function TransactionDrawer() {
             </>
           ) : null}
         </div>
-
-        {/* Footer actions */}
-        <div className="px-6 py-4 border-t border-[var(--color-neutral-100)] bg-[var(--color-neutral-50)]/50">
-          <Button variant="secondary" onClick={handleClose} className="w-full h-10 text-xs font-semibold">
-            Close Panel
-          </Button>
-        </div>
+        
       </div>
     </div>
   );

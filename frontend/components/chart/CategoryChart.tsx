@@ -182,7 +182,7 @@ export default function CategoryChart() {
 
       {/* Render Chart View conditionally */}
       {chartView === 'donut' ? (
-        <div className="p-6 flex flex-col md:flex-row items-center gap-8 min-h-[380px]">
+        <div className="p-4 sm:p-6 flex flex-col md:flex-row items-center gap-8 min-h-[380px]">
           {/* Donut Chart View */}
           <div className="w-full md:w-1/2 h-[340px] flex items-center justify-center relative">
             <ResponsiveContainer width="100%" height="100%">
@@ -298,7 +298,7 @@ export default function CategoryChart() {
         </div>
       ) : (
         /* Horizontal Progress-Bar List View */
-        <div className="p-6 min-h-[380px] flex flex-col justify-center">
+        <div className="p-4 sm:p-6 min-h-[380px] flex flex-col justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[330px] overflow-y-auto pr-2">
             {chartData.map((item) => {
               const isSelected = activeCategory === item.name;

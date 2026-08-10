@@ -60,35 +60,31 @@ export default function TableRow({ transaction, index, style, onClick }: TableRo
       {/* Merchant Info */}
       <div className="flex-[2] flex items-center min-w-0 py-3 pr-4 border-r border-[var(--color-neutral-100)]">
         <div className="min-w-0">
-          <p className="font-[var(--font-weight-semibold)] text-[var(--font-size-sm)] text-[var(--color-neutral-800)] truncate">
+          <p className="font-[var(--font-weight-semibold)] text-xs sm:text-sm text-[var(--color-neutral-800)] truncate">
             {transaction.merchant}
-          </p>
-          <p className="sm:hidden text-[10px] text-[var(--color-neutral-400)] mt-0.5 flex items-center gap-1">
-            <Calendar className="w-3 h-3" />
-            {formatDate(transaction.occurred_at)}
           </p>
         </div>
       </div>
 
       {/* Category */}
       <div className="flex-1 flex items-center py-3 px-4 border-r border-[var(--color-neutral-100)] min-w-0">
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-[var(--color-neutral-100)] text-[var(--color-neutral-600)] font-medium">
+        <span className="inline-flex items-center px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-md bg-[var(--color-neutral-100)] text-[var(--color-neutral-600)] text-xs sm:text-sm font-semibold select-none">
           {transaction.category}
         </span>
       </div>
 
       {/* Amount */}
-      <div className="flex-1 flex items-center py-3 px-4 border-r border-[var(--color-neutral-100)] min-w-0 font-[var(--font-weight-semibold)] text-[var(--font-size-sm)] text-[var(--color-neutral-800)]">
+      <div className="flex-1 flex items-center py-3 px-4 border-r border-[var(--color-neutral-100)] min-w-0 font-[var(--font-weight-semibold)] text-xs sm:text-sm text-[var(--color-neutral-800)]">
         {formatCurrency(transaction.amount)}
       </div>
 
       {/* Status (Payment Status) */}
       <div className="flex-1 flex items-center py-3 px-4 border-r border-[var(--color-neutral-100)] min-w-0">
-        <Badge variant={transaction.status}>{transaction.status}</Badge>
+        <Badge variant={transaction.status} className="text-xs sm:text-sm px-2 py-0.5 sm:px-2.5 sm:py-0.5 select-none">{transaction.status}</Badge>
       </div>
 
       {/* Date / Timestamp */}
-      <div className="flex-[1.5] flex items-center py-3 pl-4 min-w-0 text-[var(--font-size-xs)] text-[var(--color-neutral-500)]">
+      <div className="flex-[1.5] flex items-center py-3 pl-4 min-w-0 text-xs sm:text-sm text-[var(--color-neutral-500)]">
         {formatDate(transaction.occurred_at)}
       </div>
     </div>
