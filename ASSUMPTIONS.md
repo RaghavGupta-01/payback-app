@@ -11,5 +11,6 @@
   for this build — the brief left the specific rewards undefined.
 - Currency is assumed INR throughout even where the `currency` field is missing;
   defaulted to `"INR"` at seed time.
-- `transaction_status` values are normalized to uppercase (`SUCCESS`, `FAILED`, `PENDING`)
+- `status` values are normalized to uppercase (`SUCCESS`, `FAILED`, `PENDING`)
   to guard against inconsistent casing in the source data.
+- Rewards can be redeemed multiple times by the same user, limited only by coin balance - no one-reward per user redemption cap is enforced.
