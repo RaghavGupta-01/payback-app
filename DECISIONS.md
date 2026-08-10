@@ -3,6 +3,9 @@
 ## Frontend
 - **TanStack Query (React Query)**: Used for managing server state, automatic caching, data refetching, and state mutation (e.g. rewards redemption). In particular, we utilize query invalidation to sync user coin balance after successful redemptions and rollback functions during failure states.
 - **Zustand**: Selected for light, centralized client state management (active search keywords, filter values, sorting parameters, detail drawer open state, and selected reward). This avoids the boilerplates of Redux or React Context and reduces unnecessary re-renders.
+- **Client-Side Virtualization**: Decided to load the entire transaction dataset (~10,000 items, ~2MB raw JSON) into memory on initial load and render it using list virtualization (`react-window`), rather than implementing paginated backend requests.
+  - *Reason:* This allows all sorting, multi-dropdown filtering, and key-by-key merchant search matching to run with **zero-latency instant feedback** on the client, eliminating network round-trips on every keystroke. 
+  - *Performance:* Virtualization limits active DOM elements to only the visible rows (~20 elements) instead of mounting thousands of DOM nodes, maintaining high-performance scrolling and preventing memory leaks.
 
 ## Backend
 - **FastAPI + async SQLAlchemy (asyncpg)** for non-blocking DB access under load.
