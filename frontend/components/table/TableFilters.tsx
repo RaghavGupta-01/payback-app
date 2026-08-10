@@ -38,21 +38,21 @@ export default function TableFilters({ categories }: TableFiltersProps) {
     store.amountMax !== '';
 
   return (
-    <Card className="space-y-4">
-      {/* Header and Reset Button */}
-      <div className="flex items-center justify-between border-b border-[var(--color-neutral-100)] pb-3">
-        <div className="flex items-center gap-2 font-[var(--font-weight-semibold)] text-[var(--font-size-sm)] text-[var(--color-neutral-700)]">
-          <ListFilter className="w-4 h-4 text-[var(--color-primary-500)]" />
-          <span>Filter Transactions</span>
+    <div className="space-y-4">
+      {/* Filters Sub-header & Reset Button */}
+      <div className="flex items-center justify-between pb-2 border-b border-[var(--color-neutral-100)]">
+        <div className="flex items-center gap-1.5 text-xs font-bold text-[var(--color-neutral-400)] uppercase tracking-wider select-none">
+          <ListFilter className="w-3.5 h-3.5 text-[var(--color-primary-500)]" />
+          <span>Filters</span>
         </div>
         {hasActiveFilters && (
           <Button
             variant="ghost"
             size="sm"
             onClick={store.resetFilters}
-            className="text-[var(--color-failed-600)] hover:bg-[var(--color-failed-50)] dark:hover:bg-[var(--color-failed-950)]/20"
+            className="text-[var(--color-failed-600)] hover:bg-[var(--color-failed-50)] text-xs h-7 px-2.5 flex items-center gap-1"
           >
-            <FilterX className="w-4 h-4" />
+            <FilterX className="w-3.5 h-3.5" />
             <span>Reset Filters</span>
           </Button>
         )}
@@ -148,6 +148,6 @@ export default function TableFilters({ categories }: TableFiltersProps) {
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 }

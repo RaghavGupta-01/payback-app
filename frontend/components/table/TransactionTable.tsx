@@ -162,21 +162,7 @@ if (isError) {
 }
 
 return (
-  <Card className="p-0 overflow-hidden flex flex-col">
-      {/* Table Title and Count */}
-      <div className="px-6 py-[var(--spacing-4)] bg-[var(--color-neutral-50)]/50 border-b border-[var(--color-neutral-200)] flex items-center justify-between">
-        <div>
-          <h2 className="font-[var(--font-weight-semibold)] text-[var(--font-size-sm)] text-[var(--color-neutral-700)]">
-            Transactions History
-          </h2>
-          <p className="text-[var(--font-size-xs)] text-[var(--color-neutral-400)] mt-0.5">
-            Showing {filteredSortedTransactions.length} of {transactions.length} records
-          </p>
-        </div>
-      </div>
-
-      {/* Main Table responsive scroll container */}
-      <div className="w-full overflow-x-auto">
+  <div className="w-full overflow-x-auto">
         <div className="min-w-[768px] flex flex-col">
           {/* Sticky Table Header */}
           <div className="flex items-stretch px-6 py-0 border-b border-[var(--color-neutral-200)] bg-[var(--color-neutral-50)]/80 text-xs font-bold text-[var(--color-neutral-400)] uppercase tracking-wider select-none">
@@ -239,6 +225,5 @@ return (
           )}
         </div>
       </div>
-    </Card>
   );
 }
