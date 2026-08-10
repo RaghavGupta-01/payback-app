@@ -60,7 +60,40 @@ npm run dev                    # runs on http://localhost:3000
 ```
 
 ## Live URLs
-<!-- TODO -->
+
+- **Frontend:** [https://payback-app-roan.vercel.app/dashboard](https://payback-app-roan.vercel.app/dashboard)
+- **Backend:** [https://payback-app-5la9.onrender.com](https://payback-app-5la9.onrender.com)
 
 ## Status (Done / Not Done / Known Issues)
-<!-- TODO -->
+
+### Completed (Done)
+- **Backend & Database:**
+  - REST API built with **FastAPI** featuring CORS support for seamless local and production integrations.
+  - **SQLAlchemy (async)** and **PostgreSQL** schema configured with index optimizations on common query fields (merchant, status, occurred date).
+  - Idempotent **Seeding Script** processing ~10,000 transactions, featuring amount normalization (absolute values) and reward coins aggregation.
+  - Reset script for restoring balance/redemption state during testing.
+  - Rewards endpoints (balance, catalog, redeem) with atomic balance updates and proper 400/404 error handling.
+- **Frontend Core & State:**
+  - Next.js application using **TypeScript**, **Tailwind CSS v4**, **Zustand** global stores, and **TanStack Query** hooks.
+  - Custom unified design system tokens in `tokens.css` with clean, professional light mode styling.
+- **Components & Features:**
+  - **Unified Transactions Card:** Merged filters and table elements inside a single card wrapper with a clean uppercase header.
+  - **Virtualized Grid:** Rendered up to 10k rows with zero lag using `react-window` supporting multi-key search and sorting.
+  - **Expenditure Analysis Chart:** Donut chart visualizer with active hover details projected in the center (avoiding overlay collisions) and a toggleable **CSS Progress Bar List** mode. Click-to-filter wired into the transaction table.
+  - **Transaction Details Drawer:** Smooth CSS-driven slide-in/slide-out panel with cached state transitions.
+  - **Rewards Catalogue:** Clean gift cards grid with redemption validation, confirmation prompts, and optimistic query invalidations with rollback on failure.
+
+### Not Done
+- **Server-side pagination/filtering/sorting** — implemented client-side instead, given the fixed ~10k-row dataset size (see DECISIONS.md).
+- **Second chart (monthly spend trend)** — only the category breakdown chart was built.
+- **Two-way cross-filtering** — chart-to-table filtering is one-way only; table filters do not reshape the chart.
+- **Redemption history view** — `redemptions` table captures full history in the database, but no UI surfaces it (out of scope per the brief's "select, confirm, done" flow).
+- **Automated tests** — none included.
+- **Accessibility pass** — beyond basic focus states on the table and drawer, no dedicated a11y audit (ARIA labeling, screen reader pass) was done.
+- **Auth / multi-user support** — single seeded demo user only, no login.
+
+### Known Issues & Constraints
+- Column sizing: Symmetrical layout requires a minimum screen width of 768px; smaller resolutions will render table records in a scrollable horizontal container to prevent vertical text wrapping.
+- Negative transaction amounts in the source data were normalized to their absolute value (treated as data-entry inconsistencies rather than refunds/credits) — see ASSUMPTIONS.md.
+- Coin balance and rewards are scoped to a single hardcoded demo user; no per-user isolation exists.
+- Reward redemption has no per-user limit — a reward can be redeemed repeatedly as long as balance allows (see ASSUMPTIONS.md).
