@@ -15,19 +15,30 @@ and gives you a clear view of your spending — built with Next.js, FastAPI, and
 ## Project Structure
 
 ```text
-project/
-├── frontend/       # Next.js frontend
+payback-app/
 ├── backend/
-│   └── app/
-│       ├── api/        # routers
-│       ├── models/     # SQLAlchemy models
-│       ├── schemas/    # Pydantic schemas
-│       ├── services/   # business logic
-│       ├── db/         # session, schema.sql, seed.py
-│       ├── data/       # transactions.json
-│       └── core/       # config.py
-├── .gitignore
-└── README.md
+│   ├── app/
+│   │   ├── api/        # Routers (endpoints for transactions, balance, rewards)
+│   │   ├── core/       # Configurations (CORS middleware, app config)
+│   │   ├── data/       # Seed source files (transactions.json)
+│   │   ├── db/         # DB connection, schema.sql, and data seed.py
+│   │   ├── models/     # SQLAlchemy database entities
+│   │   ├── schemas/    # Pydantic serialization/validation schemas
+│   │   └── main.py     # FastAPI entry point
+│   ├── .env            # Environment configurations
+│   └── requirements.txt# Python package dependencies
+├── frontend/
+│   ├── app/            # Next.js App Router (routes, layout, and global styling)
+│   ├── components/     # Reusable React components (UI, table, layout, rewards, chart)
+│   ├── lib/            # API clients, React Query hooks, Zustand store, styling tokens
+│   ├── public/         # Static visual assets
+│   ├── .env            # Frontend environment configurations
+│   ├── package.json    # NPM workspace dependencies and scripts
+│   └── tsconfig.json   # TypeScript configurations
+├── AI-USAGE.md         # AI tools usage
+├── ASSUMPTIONS.md      # Project assumptions
+├── DECISIONS.md        # Architecture decisions
+└── README.md           # Getting started guide
 ```
 
 ## Local Setup

@@ -168,8 +168,9 @@ export default function TransactionDrawer() {
       >
         {/* Header */}
         <div className="px-6 py-5 border-b border-[var(--color-neutral-100)] flex items-center justify-between">
-          <h2 className="text-base font-bold text-[var(--color-neutral-900)] tracking-tight">
-            Transaction Details
+          <h2 className="text-base font-bold text-[var(--color-neutral-900)] tracking-tight flex items-center gap-2 select-none">
+            <span className="w-3 h-3 rounded-sm bg-purple-600 flex-shrink-0" aria-hidden="true" />
+            <span>Transaction Details</span>
           </h2>
           <button
             ref={closeButtonRef}

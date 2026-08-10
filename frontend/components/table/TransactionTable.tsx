@@ -125,18 +125,20 @@ const Row = ({ index, style }: { index: number; style: React.CSSProperties }) =>
 // Loading skeleton state
 if (isLoading) {
   return (
-    <Card className="space-y-4">
-      <div className="h-6 w-48 bg-[var(--color-neutral-100)] rounded animate-pulse" />
-      <div className="space-y-2 pt-4">
+    <div className="p-6 space-y-4 w-full">
+      <div className="h-5 w-48 bg-[var(--color-neutral-100)] rounded-md animate-pulse" />
+      <div className="space-y-3 pt-2">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="flex gap-4 items-center">
-            <div className="h-10 flex-1 bg-[var(--color-neutral-100)] rounded animate-pulse" />
-            <div className="h-10 flex-2 bg-[var(--color-neutral-100)] rounded animate-pulse" />
-            <div className="h-10 flex-1 bg-[var(--color-neutral-100)] rounded animate-pulse" />
+            <div className="h-8 flex-[2] bg-[var(--color-neutral-100)] rounded-md animate-pulse" />
+            <div className="h-8 flex-1 bg-[var(--color-neutral-100)] rounded-md animate-pulse" />
+            <div className="h-8 flex-1 bg-[var(--color-neutral-100)] rounded-md animate-pulse" />
+            <div className="h-8 flex-1 bg-[var(--color-neutral-100)] rounded-md animate-pulse" />
+            <div className="h-8 flex-[1.5] bg-[var(--color-neutral-100)] rounded-md animate-pulse" />
           </div>
         ))}
       </div>
-    </Card>
+    </div>
   );
 }
 

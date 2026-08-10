@@ -111,8 +111,9 @@ export default function RewardsCatalog() {
     <Card className="p-0 overflow-hidden flex flex-col">
       {/* Card Header with Title */}
       <div className="px-6 py-[var(--spacing-4)] bg-[var(--color-neutral-50)]/50 border-b border-[var(--color-neutral-200)] flex items-center justify-between">
-        <h2 className="text-xl font-bold text-[var(--color-neutral-800)] tracking-tight">
-          Rewards Catalogue
+        <h2 className="text-xl font-bold text-[var(--color-neutral-800)] tracking-tight flex items-center gap-2.5 select-none">
+          <span className="w-3 h-3 rounded-sm bg-purple-600 flex-shrink-0" aria-hidden="true" />
+          <span>Rewards Catalogue</span>
         </h2>
       </div>
 
